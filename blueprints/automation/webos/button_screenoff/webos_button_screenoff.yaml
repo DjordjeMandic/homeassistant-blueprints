@@ -1,0 +1,38 @@
+blueprint:
+  name: WebOS Screen Off
+  description: Turn off screen of webos device
+  domain: automation
+  source_url: https://github.com/DjordjeMandic/homeassistant-blueprints/blueprints/automation/webos/button_screenoff/webos_button_screenoff.yaml
+  input:
+    target_webos:
+      name: WebOS Media Player
+      description: This is the media player of WebOS device that will be controlled
+      selector:
+        target:
+          entity:
+            domain: media_player
+    button_entity:
+      name: Button
+      description: Button that will be used to turn screen off
+      selector:
+        target:
+          entity:
+            domain: input_button
+mode: single
+trigger:
+  platform: state
+  entity_id: !input button_entity
+condition:
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: !input target_webos
+        state: "off"
+      - condition: state
+        entity_id: !input target_webos
+        state: unavailable
+action:
+  - service: webostv.command
+    data:
+      entity_id: !input target_webos
+      command: com.webos.service.tvpower/power/turnOffScreen
