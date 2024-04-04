@@ -18,12 +18,24 @@ blueprint:
         target:
           entity:
             domain: input_button
+variables:
+  target_webos: !input target_webos
+  button_entity: !input button_entity
 mode: single
 trigger:
   platform: state
-  entity_id: !input button_entity
+  entity_id: "{{ button_entity }}"
+condition:
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: "{{ target_webos }}"
+        state: "off"
+      - condition: state
+        entity_id: "{{ target_webos }}"
+        state: unavailable
 action:
   - service: webostv.command
     data:
-      entity_id: !input target_webos
+      entity_id: "{{ target_webos }}"
       command: com.webos.service.tvpower/power/turnOffScreen
