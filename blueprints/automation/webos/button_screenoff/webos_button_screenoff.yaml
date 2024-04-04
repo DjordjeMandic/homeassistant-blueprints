@@ -1,5 +1,5 @@
 blueprint:
-  name: WebOS Screen Off
+  name: WebOS Button Screen Off
   description: Turn off screen of webos device
   domain: automation
   source_url: https://github.com/DjordjeMandic/homeassistant-blueprints/blueprints/automation/webos/button_screenoff/webos_button_screenoff.yaml
