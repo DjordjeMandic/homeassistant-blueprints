@@ -22,15 +22,6 @@ mode: single
 trigger:
   platform: state
   entity_id: !input button_entity
-condition:
-  - condition: not
-    conditions:
-      - condition: state
-        entity_id: !input target_webos
-        state: "off"
-      - condition: state
-        entity_id: !input target_webos
-        state: unavailable
 action:
   - service: webostv.command
     data:
